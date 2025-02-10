@@ -1,5 +1,5 @@
 # 基于peft库实现LoRA微调LLAMA模型
-1.获取训练数据集，`translation2019zh`，来源百度飞桨https://aistudio.baidu.com/datasetdetail/209041；<br>
+1.获取训练数据集，`translation2019zh`，来源百度飞桨https://aistudio.baidu.com/datasetdetail/209041 ；<br>
 2.基于peft库实现注入lora层，并利用stf库进行模型训练，详见`sft_peft_llama.py`；<br>
 3.合并lora层，获得最终微调后的模型，详见`merge_llama.py`；<br>
 4.利用测试数据进行测试，对照微调前后输出结果的差异，详见`contrast_llama.py`。<br>
