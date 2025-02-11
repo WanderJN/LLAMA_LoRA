@@ -13,4 +13,4 @@
 ## 训练过程
 ![image](https://github.com/user-attachments/assets/941a5ad8-3384-495a-8ec6-951eadc03304)
 ## 结果展示
-![image](https://github.com/user-attachments/assets/01d0733e-c1c8-4dda-9fbe-5d32bbc1a564)
+![image](https://github.com/user-attachments/assets/ab411cc4-c6f5-472a-b765-7618d190db3a)
