@@ -71,22 +71,22 @@ for i, output in enumerate(batch_outputs):
 '''
 Translate Chinese to English:
 Input:我想八点半去火车站
-Output:I want to leave the train station at eight-thirty.
+Output:I want to leave at 8:30
 =======================================
 Translate English to Chinese:
 Input:At the end of the 16th century, about five to seven million people spoke English.
-Output:在16世纪末，约五到七百万人能说英语。
+Output:16世纪末，英语的使用人数约为五到七百万。
 =======================================
 Translate Chinese to English:
 Input:今天的天气真好，我想出去玩
-Output:The weather is good today, I want to go out and play.
+Output:Today's weather is good, I want to go out to play
 =======================================
 Translate English to Chinese:
 Input:The community is a big home for me, I know everyone here, it is a paradise.
-Output:我在这里认识了很多人，我感到这里是我家，是我的天堂。
+Output:我在这里的团队是我家，我们是一家人，它是我的天堂。
 =======================================
 Translate English to Chinese:
 Input:These new settlers enriched the English language and especially its vocabulary.
-Output:这些新的移民增加了英语的词汇，特别是其词汇。
+Output:随着新的移民的到来，英语的词汇质量得到了增强。
 =======================================
 '''
