@@ -65,41 +65,26 @@ with torch.no_grad():
 # 解码并打印每个提示的响应
 for i, output in enumerate(batch_outputs):
     response = tokenizer.decode(output, skip_special_tokens=True)
-    print(f"{test_prompts[i]}\n{response}\n=======================================")
+    print(f"{response}\n=======================================")
 
 # 结果输出
 '''
-Translate Chinese to English:
-Input:我想八点半去火车站
-Output:
 Translate Chinese to English:
 Input:我想八点半去火车站
 Output:I want to leave the train station at eight-thirty.
 =======================================
 Translate English to Chinese:
 Input:At the end of the 16th century, about five to seven million people spoke English.
-Output:
-Translate English to Chinese:
-Input:At the end of the 16th century, about five to seven million people spoke English.
 Output:在16世纪末，约五到七百万人能说英语。
 =======================================
-Translate Chinese to English:
-Input:今天的天气真好，我想出去玩
-Output:
 Translate Chinese to English:
 Input:今天的天气真好，我想出去玩
 Output:The weather is good today, I want to go out and play.
 =======================================
 Translate English to Chinese:
 Input:The community is a big home for me, I know everyone here, it is a paradise.
-Output:
-Translate English to Chinese:
-Input:The community is a big home for me, I know everyone here, it is a paradise.
 Output:我在这里认识了很多人，我感到这里是我家，是我的天堂。
 =======================================
-Translate English to Chinese:
-Input:These new settlers enriched the English language and especially its vocabulary.
-Output:
 Translate English to Chinese:
 Input:These new settlers enriched the English language and especially its vocabulary.
 Output:这些新的移民增加了英语的词汇，特别是其词汇。
