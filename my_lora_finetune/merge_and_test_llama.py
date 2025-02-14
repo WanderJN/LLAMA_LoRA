@@ -2,6 +2,13 @@ import torch
 import torch.nn as nn
 from transformers import LlamaForCausalLM, LlamaTokenizer
 from lora import LoraLayer, inject_lora
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+import nltk
+import jieba, re
+
+# nltk.download('punkt')    # 如果没下载的话需要下载nltk数据
+# nltk.download('punkt_tab')
+
 
 base_model_path = "e:\Codes\llama\Llama2_7b_hf"
 tokenizer = LlamaTokenizer.from_pretrained(base_model_path, trust_remote_code=True)
@@ -49,11 +56,20 @@ model.eval()
 
 # 多个测试提示
 test_prompts = [
-    "Translate Chinese to English:\nInput:我想八点半去火车站\nOutput:",
+    "Translate Chinese to English:\nInput:机器翻译是一个很有挑战的任务。\nOutput:",
     "Translate English to Chinese:\nInput:At the end of the 16th century, about five to seven million people spoke English.\nOutput:",
-    "Translate Chinese to English:\nInput:今天的天气真好，我想出去玩\nOutput:",
+    "Translate Chinese to English:\nInput:今天的天气真好，我想出去玩。\nOutput:",
     "Translate English to Chinese:\nInput:The community is a big home for me, I know everyone here, it is a paradise.\nOutput:",
     "Translate English to Chinese:\nInput:These new settlers enriched the English language and especially its vocabulary.\nOutput:"
+]
+
+# 参考文本
+reference_texts = [ 
+    "Machine translation is a very challenging task.",
+    "在16世纪末，约有五百万到七百万人说英语。", 
+    "The weather today is really nice, I want to go out and play.",
+    "这个社区对我来说就像家，我认识这里的每个人，这里是一个天堂。",
+    "这些新的定居者丰富了英语语言，特别是它的词汇。" 
 ]
 
 tokenizer.padding_side = "left"
@@ -65,13 +81,13 @@ with torch.no_grad():
 # 解码并打印每个提示的响应
 for i, output in enumerate(batch_outputs):
     response = tokenizer.decode(output, skip_special_tokens=True)
-    print(f"{response}\n=======================================")
+    print(f"{response}\n" + '='*100)
 
 # 结果输出
 '''
 Translate Chinese to English:
-Input:我想八点半去火车站
-Output:I want to leave at 8:30
+Input:机器翻译是一个很有挑战的任务。
+Output:Machine translation is a challenging task.
 =======================================
 Translate English to Chinese:
 Input:At the end of the 16th century, about five to seven million people spoke English.
@@ -90,3 +106,40 @@ Input:These new settlers enriched the English language and especially its vocabu
 Output:随着新的移民的到来，英语的词汇质量得到了增强。
 =======================================
 '''
+
+# 判断是否为中文句子
+def is_chinese(text):
+    # 匹配中文字符
+    return bool(re.search(r'[\u4e00-\u9fff]', text))
+
+# 计算BLEU分数
+def calculate_bleu(reference, generated):
+    # 定义一个平滑函数
+    smoothing = SmoothingFunction().method1  # You can try other methods as well
+
+    # 中文用jieba.cut分词，英文用nltk.word_tokenize分词
+    if is_chinese(generated):
+        reference_tokens = list(jieba.cut(reference))
+        generated_tokens = list(jieba.cut(generated))
+    else:
+        reference_tokens = nltk.word_tokenize(reference.lower())
+        generated_tokens = nltk.word_tokenize(generated.lower())
+
+    # Calculate BLEU
+    return sentence_bleu([reference_tokens], generated_tokens, smoothing_function=smoothing)
+
+# 解码并计算BLEU得分
+bleu_socre_list = []
+for i in range(len(batch_outputs)):
+    response = tokenizer.decode(batch_outputs[i], skip_special_tokens=True).split('Output:')[1]
+    reference = reference_texts[i]
+
+    # 计算BLEU得分
+    bleu_socre = calculate_bleu(reference, response)
+    bleu_socre_list.append(bleu_socre)
+
+    print(f'bleu: {bleu_socre:.4f} |' ,response, '|', reference)
+    print('='*100)
+
+average_bleu = sum(bleu_socre_list) / len(bleu_socre_list)
+print(f'Average bleu:{average_bleu:.4f}')
