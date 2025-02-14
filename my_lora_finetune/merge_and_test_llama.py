@@ -88,23 +88,23 @@ for i, output in enumerate(batch_outputs):
 Translate Chinese to English:
 Input:机器翻译是一个很有挑战的任务。
 Output:Machine translation is a challenging task.
-=======================================
+====================================================================================================
 Translate English to Chinese:
 Input:At the end of the 16th century, about five to seven million people spoke English.
 Output:16世纪末，英语的使用人数约为五到七百万。
-=======================================
+====================================================================================================
 Translate Chinese to English:
 Input:今天的天气真好，我想出去玩
 Output:Today's weather is good, I want to go out to play
-=======================================
+====================================================================================================
 Translate English to Chinese:
 Input:The community is a big home for me, I know everyone here, it is a paradise.
 Output:我在这里的团队是我家，我们是一家人，它是我的天堂。
-=======================================
+====================================================================================================
 Translate English to Chinese:
 Input:These new settlers enriched the English language and especially its vocabulary.
 Output:随着新的移民的到来，英语的词汇质量得到了增强。
-=======================================
+====================================================================================================
 '''
 
 # 判断是否为中文句子
